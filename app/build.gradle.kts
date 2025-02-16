@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val githubRepo = "acmerobotics/MeepMeep"
+val githubRepo = "GramGra07/HeatseekerSimulator"
 val githubReadme = "README.md"
 
 val pomUrl = "https://github.com/$githubRepo"
@@ -20,34 +20,48 @@ android {
 
     defaultConfig {
         applicationId = "com.gentrifiedapps.heatseekersimulator"
-        minSdk = 34
         targetSdk = 35
+        minSdk = 30
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/java")
+            resources.srcDirs("src/main/res")
+        }
+    }
+
+    // Configure publishing inside android block
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
     }
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation(libs.javafx.controls)
+    implementation(libs.javafx.fxml)
+    implementation(libs.javafx.graphics)
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -57,66 +71,55 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
-
-    implementation( "com.acmerobotics.dashboard:dashboard:0.4.16")
+    implementation("com.acmerobotics.dashboard:dashboard:0.4.16")
     implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to emptyList<String>()
+    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
-
-sourceSets["main"].java {
-    srcDir("src/main/kotlin")
+// Define resources JAR
+val resourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("resources") // This sets the classifier (like 'resources.jar')
+    from(android.sourceSets["main"].resources.srcDirs) // Includes all the resources from the main source set
 }
 
-sourceSets["test"].java {
-    srcDir("src/test/kotlin")
-}
-
-// Create sources Jar from main kotlin sources
+// Define sources JAR
 val sourcesJar by tasks.creating(Jar::class) {
     archiveClassifier.set("sources")
-    from(sourceSets.getByName("main").allSource)
+    from(android.sourceSets["main"].java.srcDirs)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("heatseekerSimulator") {
-            groupId = "com.gentrifiedapps.heatseekersimulator"
-            artifactId = "heatseekerSimulator"
-            version = "0.0.0"
+// Publishing block outside android
+afterEvaluate {
+    extensions.configure<PublishingExtension>("publishing") {
+        publications {
+            create<MavenPublication>("heatseekerSimulator") {
+                from(components["release"]) // Ensure "release" variant exists in the android.publishing block
+                artifact(sourcesJar)
 
-            from(components["java"])
-            artifact(sourcesJar)
-
-            pom {
-                packaging = "jar"
-                name.set(rootProject.name)
-                description.set(pomDesc)
-                url.set(pomUrl)
-                scm {
-                    url.set(pomScmUrl)
+                pom {
+                    description.set(pomDesc)
+                    url.set(pomUrl)
+                    scm {
+                        url.set(pomScmUrl)
+                    }
                 }
             }
         }
     }
+}
 
-    repositories {
-        maven {
-            url = uri("$buildDir/repository")
-        }
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
 }
