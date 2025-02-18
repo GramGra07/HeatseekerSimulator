@@ -5,8 +5,9 @@ import javafx.scene.control.Button
 import javafx.scene.control.TextField
 import javafx.scene.control.ToolBar
 import javafx.scene.text.Text
+import javafx.stage.Stage
 
-class ToolbarDrawer(val robot: Robot, val simulator: Simulator) {
+class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage) {
     val toolbar = ToolBar()
     val runButton = Button("Simulate")
     val stopButton = Button("Reset simulation")
@@ -17,15 +18,12 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator) {
     val text2 = Text(height)
     val inputField2 = TextField(robot   .robotHeight.toString())
 
-    val maxSpeed = "Max speed"
-    val maxTxt = Text(maxSpeed)
-    val maxTxtField = TextField(robot.maxSpeed.toString())
+    val maxSpeed = "Calculate speed"
+    val maxTxt = Button(maxSpeed)
     init {
-        toolbar.items.addAll(runButton, stopButton, text,inputField,text2,inputField2,maxTxt,maxTxtField)
-        maxTxtField.setOnKeyReleased {
-            if (maxTxtField.text.isNotEmpty()) {
-                robot.maxSpeed = maxTxtField.text.toDouble()
-            }
+        toolbar.items.addAll(runButton, stopButton, text,inputField,text2,inputField2,maxTxt)
+        maxTxt.setOnAction {
+            SpeedCalculatorWindow(robot).start(stage)
         }
         inputField.setOnKeyReleased {
             if (inputField.text.isNotEmpty()) {
@@ -33,6 +31,7 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator) {
                     inputField.text = "18"
                 }
                 robot.robotWidth = inputField.text.toInt()
+                FW().writeHeightWidthToCSV(listOf( robot.robotHeight, robot.robotWidth))
             }
         }
         inputField2.setOnKeyReleased {
@@ -41,6 +40,7 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator) {
                     inputField2.text = "18"
                 }
                 robot.robotHeight = inputField2.text.toInt()
+                FW().writeHeightWidthToCSV(listOf( robot.robotHeight, robot.robotWidth))
             }
         }
         runButton.setOnAction {
