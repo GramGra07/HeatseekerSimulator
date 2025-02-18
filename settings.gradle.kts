@@ -24,5 +24,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "HeatseekerSimulator"
-include(":app")
+include(":heatseekerSimulator")
  
