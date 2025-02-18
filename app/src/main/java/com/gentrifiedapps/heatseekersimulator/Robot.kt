@@ -1,10 +1,12 @@
 package com.gentrifiedapps.heatseekersimulator
 
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.inToPixels
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.inpsToinpf
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.mmpsToinps
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.mpsToamps
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.mpsTommps
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulator.drawers.PIDControllerView
+import com.gentrifiedapps.heatseekersimulator.util.FW
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.inpsToinpf
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.mmpsToinps
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.mpsToamps
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.mpsTommps
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color.BLUE
 import org.gentrifiedApps.gentrifiedAppsUtil.heatseeker.generics.pointClasses.Waypoint
@@ -87,7 +89,7 @@ class Robot {
         gc.stroke = BLUE
         gc.lineWidth = 4.0
 
-        val headingLength = (0.5 * inToPixels * robotHeight)-4 // Length of the heading line
+        val headingLength = (0.5 * inToPixels * robotHeight) - 4 // Length of the heading line
 
         // The line starts at the center and extends outward
         gc.strokeLine(0.0, 0.0, headingLength, 0.0)
@@ -108,10 +110,10 @@ class Robot {
 
         // PID control for position
         val xCorrection = (pidControllerViewX.getPID()
-            .calculatePID(targetX, x)/ pidControllerViewX.getMax())*target.velocity*(inpf)
+            .calculatePID(targetX, x) / pidControllerViewX.getMax()) * target.velocity * (inpf)
 
         val yCorrection = (pidControllerViewY.getPID()
-            .calculatePID(targetY, y)/ pidControllerViewY.getMax())*target.velocity*(inpf)
+            .calculatePID(targetY, y) / pidControllerViewY.getMax()) * target.velocity * (inpf)
 
         // PID control for angle
         val angleCorrection = pidControllerViewH.getPID()
@@ -125,7 +127,6 @@ class Robot {
         x += xCorrection
         y += yCorrection
     }
-
 
 
     fun isAt(waypoint: Waypoint, t: Double = 0.2): Boolean {

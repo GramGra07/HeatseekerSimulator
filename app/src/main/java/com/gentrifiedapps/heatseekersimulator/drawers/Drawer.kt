@@ -1,13 +1,16 @@
-package com.gentrifiedapps.heatseekersimulator
+package com.gentrifiedapps.heatseekersimulator.drawers
 
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.isSimulating
+import com.gentrifiedapps.heatseekersimulator.Robot
+import com.gentrifiedapps.heatseekersimulator.Simulator
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.isSimulating
+import com.gentrifiedapps.heatseekersimulator.util.FW
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
 import javafx.scene.control.ToolBar
 import javafx.scene.text.Text
 import javafx.stage.Stage
 
-class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage) {
+class ToolbarDrawer(val robot: Robot, val simulator: Simulator, val stage: Stage) {
     val toolbar = ToolBar()
     val runButton = Button("Simulate")
     val stopButton = Button("Reset simulation")
@@ -16,14 +19,15 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage)
     val inputField = TextField(robot.robotWidth.toString())
     val height = "Robot Height"
     val text2 = Text(height)
-    val inputField2 = TextField(robot   .robotHeight.toString())
+    val inputField2 = TextField(robot.robotHeight.toString())
 
     val maxSpeed = "Calculate speed"
     val maxTxt = Button(maxSpeed)
+
     init {
         text.style = "-fx-fill: #ffffff;"
         text2.style = "-fx-fill: #ffffff;"
-        toolbar.items.addAll(runButton, stopButton, text,inputField,text2,inputField2,maxTxt)
+        toolbar.items.addAll(runButton, stopButton, text, inputField, text2, inputField2, maxTxt)
         toolbar.style = "-fx-background-color: #2b2b2b; -fx-text-fill: #ffffff;"
         maxTxt.setOnAction {
             SpeedCalculatorWindow(robot).start(stage)
@@ -34,7 +38,7 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage)
                     inputField.text = "18"
                 }
                 robot.robotWidth = inputField.text.toInt()
-                FW().writeHeightWidthToCSV(listOf( robot.robotHeight, robot.robotWidth))
+                FW().writeHeightWidthToCSV(listOf(robot.robotHeight, robot.robotWidth))
             }
         }
         inputField2.setOnKeyReleased {
@@ -43,7 +47,7 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage)
                     inputField2.text = "18"
                 }
                 robot.robotHeight = inputField2.text.toInt()
-                FW().writeHeightWidthToCSV(listOf( robot.robotHeight, robot.robotWidth))
+                FW().writeHeightWidthToCSV(listOf(robot.robotHeight, robot.robotWidth))
             }
         }
         runButton.setOnAction {

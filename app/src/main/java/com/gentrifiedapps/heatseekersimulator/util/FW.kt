@@ -1,5 +1,10 @@
-package com.gentrifiedapps.heatseekersimulator
+package com.gentrifiedapps.heatseekersimulator.util
 
+import com.gentrifiedapps.heatseekersimulator.Vals.DefaultVals.Companion.dDefault
+import com.gentrifiedapps.heatseekersimulator.Vals.DefaultVals.Companion.iDefault
+import com.gentrifiedapps.heatseekersimulator.Vals.DefaultVals.Companion.pDefault
+import com.gentrifiedapps.heatseekersimulator.Vals.DefaultVals.Companion.sizeDefault
+import com.gentrifiedapps.heatseekersimulator.Vals.DefaultVals.Companion.speedDefault
 import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
 import java.io.FileReader
@@ -10,11 +15,17 @@ class FW {
     fun readPIDValuesFromCSV(): List<List<Double>> {
         val reader = try {
             CSVReader(FileReader(pidName))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             if (e is java.io.FileNotFoundException) {
-                writePIDValuesToCSV(listOf(listOf(0.0, 0.0, 0.0), listOf(0.0, 0.0, 0.0), listOf(0.0, 0.0, 0.0)))
+                writePIDValuesToCSV(
+                    listOf(
+                        listOf(pDefault, iDefault, dDefault),
+                        listOf(pDefault, iDefault, dDefault),
+                        listOf(pDefault, iDefault, dDefault)
+                    )
+                )
                 CSVReader(FileReader(pidName))
-            }else{
+            } else {
                 throw e
             }
         }
@@ -40,12 +51,13 @@ class FW {
 
     val heightWidthName = "height_width.csv"
     fun readHeightWidthFromCSV(): List<Double> {
-        val reader = try{CSVReader(FileReader(heightWidthName))}
-        catch (e: Exception){
+        val reader = try {
+            CSVReader(FileReader(heightWidthName))
+        } catch (e: Exception) {
             if (e is java.io.FileNotFoundException) {
-                writeHeightWidthToCSV(listOf(18, 18))
+                writeHeightWidthToCSV(listOf(sizeDefault, sizeDefault))
                 CSVReader(FileReader(heightWidthName))
-            }else{
+            } else {
                 throw e
             }
         }
@@ -69,9 +81,9 @@ class FW {
             CSVReader(FileReader(speedsName))
         } catch (e: Exception) {
             if (e is java.io.FileNotFoundException) {
-                writeSpeedsToCSV(listOf(1.2))
+                writeSpeedsToCSV(listOf(speedDefault))
                 CSVReader(FileReader(speedsName))
-            }else{
+            } else {
                 throw e
             }
         }

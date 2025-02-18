@@ -1,14 +1,13 @@
 package com.gentrifiedapps.heatseekersimulator
 
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.centerWaypoint
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.isSimulating
-import javafx.scene.canvas.Canvas
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.centerWaypoint
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.isSimulating
 import javafx.scene.canvas.GraphicsContext
 import org.gentrifiedApps.gentrifiedAppsUtil.heatseeker.generics.pointClasses.Waypoint
 
-class Simulator(val robot: Robot, val canvas: Canvas, val gc: GraphicsContext) {
+class Simulator(val robot: Robot, val gc: GraphicsContext) {
     var currentWaypoint = centerWaypoint
-    fun reset(){
+    fun reset() {
         robot.setPos(currentWaypoint)
         robot.angle = centerWaypoint.h
     }
@@ -16,7 +15,7 @@ class Simulator(val robot: Robot, val canvas: Canvas, val gc: GraphicsContext) {
     fun update(pubwaypoints: MutableList<Waypoint>) {
         if (isSimulating) {
             if (pubwaypoints.isNotEmpty()) {
-                if (robot.isAt(currentWaypoint,2.0)) {
+                if (robot.isAt(currentWaypoint, 2.0)) {
                     val currentIndex = pubwaypoints.indexOf(currentWaypoint)
                     if (currentIndex < pubwaypoints.size - 1) {
                         currentWaypoint = pubwaypoints[currentIndex + 1]

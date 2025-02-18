@@ -1,13 +1,17 @@
 package com.gentrifiedapps.heatseekersimulator
 
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.centerWaypoint
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.height
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.imageParam
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.inToPixels
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.toolbarHeight
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.waypointRad
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.width
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.distanceTo
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.centerWaypoint
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.height
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.imageParam
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.toolbarHeight
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.waypointRad
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.width
+import com.gentrifiedapps.heatseekersimulator.drawers.ToolbarDrawer
+import com.gentrifiedapps.heatseekersimulator.util.Formattables
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.distanceTo
 import javafx.animation.AnimationTimer
 import javafx.application.Application
 import javafx.scene.Scene
@@ -37,10 +41,11 @@ class RoboticsSimulator : Application() {
 
     override fun start(primaryStage: Stage) {
         val splitPane = SplitPane()
-        splitPane.style = "-fx-background-color: #2b2b2b; -fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
+        splitPane.style =
+            "-fx-background-color: #2b2b2b; -fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
 
         // Code Editor (Simple WebView for now, can be replaced with a real editor component)
-        val canvasC = Canvas(width / 2, height/3*2-100)
+        val canvasC = Canvas(width / 2, height / 3 * 2 - 100)
         val codeEditor = TextArea()
         codeEditor.style = "-fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
         codeEditor.setOnKeyReleased {
@@ -49,14 +54,32 @@ class RoboticsSimulator : Application() {
             }
         }
 
-        val simPaneCode = VBox(HBox(robot.pidControllerViewX.draw("X controller",0), robot.pidControllerViewY.draw("Y controller",1), robot.pidControllerViewH.draw("H controller",2)),StackPane(canvasC, codeEditor))
-        robot.pidControllerViewH.setOnReleased(robot.pidControllerViewX, robot.pidControllerViewY, robot.pidControllerViewH)
-        robot.pidControllerViewX.setOnReleased(robot.pidControllerViewX, robot.pidControllerViewY, robot.pidControllerViewH)
-        robot.pidControllerViewY.setOnReleased(robot.pidControllerViewX, robot.pidControllerViewY, robot.pidControllerViewH)
+        val simPaneCode = VBox(
+            HBox(
+                robot.pidControllerViewX.draw("X controller", 0),
+                robot.pidControllerViewY.draw("Y controller", 1),
+                robot.pidControllerViewH.draw("H controller", 2)
+            ), StackPane(canvasC, codeEditor)
+        )
+        robot.pidControllerViewH.setOnReleased(
+            robot.pidControllerViewX,
+            robot.pidControllerViewY,
+            robot.pidControllerViewH
+        )
+        robot.pidControllerViewX.setOnReleased(
+            robot.pidControllerViewX,
+            robot.pidControllerViewY,
+            robot.pidControllerViewH
+        )
+        robot.pidControllerViewY.setOnReleased(
+            robot.pidControllerViewX,
+            robot.pidControllerViewY,
+            robot.pidControllerViewH
+        )
 
 
         // Simulator Canvas
-        val canvas = Canvas(width / 2 + 20 * inToPixels, height-100)
+        val canvas = Canvas(width / 2 + 20 * inToPixels, height - 100)
         canvas.style = "-fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
         canvas.setOnMouseMoved { event ->
             val cursorX = event.x
@@ -95,11 +118,11 @@ class RoboticsSimulator : Application() {
         splitPane.items.addAll(simPaneCode, simulatorPane)
         splitPane.setDividerPositions(0.4)
 
-        val simulator = Simulator(robot, canvas, gc)
+        val simulator = Simulator(robot, gc)
         val toolbarDrawer = ToolbarDrawer(robot, simulator, primaryStage)
 
         val root = VBox(toolbarDrawer.toolbar, splitPane)
-        val scene = Scene(root, width + 20 * inToPixels, height-20)
+        val scene = Scene(root, width + 20 * inToPixels, height - 20)
 
         primaryStage.isResizable = false
         primaryStage.title = "Heatseeker Simulator"
@@ -123,7 +146,7 @@ class RoboticsSimulator : Application() {
                 drawBg(gc)
                 drawCoords(gc)
                 //refresh waypoints
-                    pubwaypoints = Formattables().formatString(codeEditor)
+                pubwaypoints = Formattables().formatString(codeEditor)
                 drawWaypoints(gc, pubwaypoints)
                 timingText.text = "Time (s): ${String.format("%.2f", totalTime).toDouble()}"
                 simulator.update(pubwaypoints)
@@ -155,16 +178,17 @@ class RoboticsSimulator : Application() {
         waypointsWrapped.forEach {
             gc.fillOval(it.x - waypointRad, it.y - waypointRad, waypointRad * 2, waypointRad * 2)
         }
-        sumWaypoint(gc, waypointsWrapped)
+        sumWaypoint(waypointsWrapped)
     }
-    private fun sumWaypoint(gc: GraphicsContext, waypoints: List<Waypoint>) {
+
+    private fun sumWaypoint(waypoints: List<Waypoint>) {
         if (waypoints.isNotEmpty()) {
             //distance between all waypoints
             var sum = 0.0
             for (i in 0 until waypoints.size - 1) {
-                sum += (waypoints[i].distanceTo(waypoints[i + 1])*(1/inToPixels)).toInt()*(1/waypoints[i].velocity)
+                sum += (waypoints[i].distanceTo(waypoints[i + 1]) * (1 / inToPixels)).toInt() * (1 / waypoints[i].velocity)
             }
-            totalTime = (MathFunctions.inToMeters(sum)/robot.mps).toDouble()
+            totalTime = (MathFunctions.inToMeters(sum) / robot.mps).toDouble()
         }
     }
 

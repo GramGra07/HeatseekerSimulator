@@ -1,10 +1,11 @@
-package com.gentrifiedapps.heatseekersimulator
+package com.gentrifiedapps.heatseekersimulator.drawers
 
-import com.gentrifiedapps.heatseekersimulator.GlobalVals.Companion.fps
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.applyGearRatio
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.mmToIn
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.mmpsTomps
-import com.gentrifiedapps.heatseekersimulator.MathFunctions.Companion.rpmTommps
+import com.gentrifiedapps.heatseekersimulator.Robot
+import com.gentrifiedapps.heatseekersimulator.Vals.GlobalVals.Companion.fps
+import com.gentrifiedapps.heatseekersimulator.util.FW
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.applyGearRatio
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.mmpsTomps
+import com.gentrifiedapps.heatseekersimulator.util.MathFunctions.Companion.rpmTommps
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.control.Button
@@ -21,6 +22,7 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
             robot.calculateSpeeds(fps)
         }
     }
+
     override fun start(primaryStage: Stage) {
         val rpmLabel = Label("Enter RPM:")
         val rpmInput = TextField()
@@ -39,7 +41,14 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
 //                resultLabel.text = "Speed: $speed m/s"
                 robot.mps = speed
                 robot.calculateSpeeds(fps)
-                FW().writeSpeedsToCSV(listOf(speed, diameterInput.text.toDoubleOrNull()?:0.0,rpmInput.text.toDoubleOrNull()?:0.0, gearRatioInput.text.toDoubleOrNull()?:0.0))
+                FW().writeSpeedsToCSV(
+                    listOf(
+                        speed,
+                        diameterInput.text.toDoubleOrNull() ?: 0.0,
+                        rpmInput.text.toDoubleOrNull() ?: 0.0,
+                        gearRatioInput.text.toDoubleOrNull() ?: 0.0
+                    )
+                )
             }
         }
         calculateButton.setOnAction {
@@ -52,7 +61,7 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
                 robot.mps = speed
                 robot.calculateSpeeds(fps)
                 speedInput.text = speed.toString()
-                FW().writeSpeedsToCSV(listOf(speed, diameter,rpm, gearRatio))
+                FW().writeSpeedsToCSV(listOf(speed, diameter, rpm, gearRatio))
             } else {
                 val speed = speedInput.text.toDoubleOrNull()
                 if (speed != null) {
@@ -60,7 +69,14 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
                     robot.mps = speed
                     robot.calculateSpeeds(fps)
                     speedInput.text = speed.toString()
-                    FW().writeSpeedsToCSV(listOf(speed, diameter?:0.0,rpm?:0.0, gearRatio?:0.0))
+                    FW().writeSpeedsToCSV(
+                        listOf(
+                            speed,
+                            diameter ?: 0.0,
+                            rpm ?: 0.0,
+                            gearRatio ?: 0.0
+                        )
+                    )
                 }
             }
         }
