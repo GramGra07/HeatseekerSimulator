@@ -21,7 +21,10 @@ class ToolbarDrawer(val robot: Robot, val simulator: Simulator,val stage: Stage)
     val maxSpeed = "Calculate speed"
     val maxTxt = Button(maxSpeed)
     init {
+        text.style = "-fx-fill: #ffffff;"
+        text2.style = "-fx-fill: #ffffff;"
         toolbar.items.addAll(runButton, stopButton, text,inputField,text2,inputField2,maxTxt)
+        toolbar.style = "-fx-background-color: #2b2b2b; -fx-text-fill: #ffffff;"
         maxTxt.setOnAction {
             SpeedCalculatorWindow(robot).start(stage)
         }

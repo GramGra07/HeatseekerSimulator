@@ -23,6 +23,7 @@ class PIDControllerView {
     val d = TextField("0.0")
     val spacer = HBox().apply { minWidth = 10.0 }
 
+
     fun getPID(): PIDController {
         return PIDController(p.text.toDoubleOrNull()?:0.0, i.text.toDoubleOrNull()?:0.0, d.text.toDoubleOrNull()?:0.0)
     }
@@ -34,13 +35,18 @@ class PIDControllerView {
         return listOf(p.text.toDouble(),i.text.toDouble(),d.text.toDouble())
     }
     fun draw(label:String, index:Int):HBox{
+
+        textLabelP.style = "-fx-fill: #ffffff;"
+        textLabelI.style = "-fx-fill: #ffffff;"
+        textLabelD.style = "-fx-fill: #ffffff;"
+
         FW().readPIDValuesFromCSV()[index].let {
             p.text = it[0].toString()
             i.text = it[1].toString()
             d.text = it[2].toString()
         }
         val canvas = Canvas(width/2/3,height/3)
-        val vbox = VBox(10.0,Text(label),textLabelP,p,textLabelI,i,textLabelD,d)
+        val vbox = VBox(10.0,Text(label).apply { this.style = "-fx-fill: #ffffff;" },textLabelP,p,textLabelI,i,textLabelD,d)
         vbox.alignment = javafx.geometry.Pos.CENTER
         val stackPane = HBox(spacer,StackPane(canvas,vbox))
         return stackPane

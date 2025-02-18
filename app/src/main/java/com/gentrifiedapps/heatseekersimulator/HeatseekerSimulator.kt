@@ -37,10 +37,12 @@ class RoboticsSimulator : Application() {
 
     override fun start(primaryStage: Stage) {
         val splitPane = SplitPane()
+        splitPane.style = "-fx-background-color: #2b2b2b; -fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
 
         // Code Editor (Simple WebView for now, can be replaced with a real editor component)
         val canvasC = Canvas(width / 2, height/3*2-100)
         val codeEditor = TextArea()
+        codeEditor.style = "-fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
         codeEditor.setOnKeyReleased {
             if (codeEditor.text.isNotEmpty()) {
                 pubwaypoints = Formattables().formatString(codeEditor)
@@ -55,6 +57,7 @@ class RoboticsSimulator : Application() {
 
         // Simulator Canvas
         val canvas = Canvas(width / 2 + 20 * inToPixels, height-100)
+        canvas.style = "-fx-control-inner-background: #2b2b2b; -fx-text-fill: #ffffff;"
         canvas.setOnMouseMoved { event ->
             val cursorX = event.x
             val cursorY = event.y
@@ -77,16 +80,17 @@ class RoboticsSimulator : Application() {
         }
         val gc = canvas.graphicsContext2D
         val timingCanvas = Canvas(width / 2 + 20 * inToPixels, 50.0)
-        val timingGc = timingCanvas.graphicsContext2D
 
         // Text Field
         val timingText = Text()
-        timingText.fill = Color.BLACK
+        timingText.fill = Color.WHITE
         timingText.font = javafx.scene.text.Font.font(20.0)
 
         val stackPane = VBox(canvas, StackPane(timingCanvas, timingText))
+        stackPane.style = "-fx-background-color: #2b2b2b;"
 
         val simulatorPane = VBox(stackPane)
+        simulatorPane.style = "-fx-background-color: #2b2b2b;"
 
         splitPane.items.addAll(simPaneCode, simulatorPane)
         splitPane.setDividerPositions(0.4)
@@ -95,7 +99,7 @@ class RoboticsSimulator : Application() {
         val toolbarDrawer = ToolbarDrawer(robot, simulator, primaryStage)
 
         val root = VBox(toolbarDrawer.toolbar, splitPane)
-        val scene = Scene(root, width + 20 * inToPixels, height)
+        val scene = Scene(root, width + 20 * inToPixels, height-20)
 
         primaryStage.isResizable = false
         primaryStage.title = "Heatseeker Simulator"
@@ -173,6 +177,7 @@ class RoboticsSimulator : Application() {
 
     private fun drawCoords(gc: GraphicsContext) {
         gc.stroke = Color.BLACK
+        gc.fill = Color.WHITE
         val newPoint = Formattables().wrapPixToWay(cursorPoint)
         gc.fillText("Point (${newPoint.x.toInt()}, ${newPoint.y.toInt()})", 10.0, imageParam + 10)
     }

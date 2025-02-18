@@ -5,7 +5,7 @@ import org.gentrifiedApps.gentrifiedAppsUtil.heatseeker.generics.pointClasses.Wa
 class GlobalVals {
     companion object {
         const val width = 1200.0
-        const val height = 700.0
+        const val height = 650.0
         var isSimulating = false
         var toolbarHeight = 50.0
 

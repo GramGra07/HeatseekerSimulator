@@ -64,6 +64,11 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
                 }
             }
         }
+        speedLabel.style = "-fx-text-fill: #ffffff;" // Red color
+        diameterLabel.style = "-fx-text-fill: #ffffff;" // Green color
+        rpmLabel.style = "-fx-text-fill: #ffffff;" // Blue color
+        gearRatioLabel.style = "-fx-text-fill: #ffffff;" // Yellow color
+
 
         val layout = VBox(
             10.0,
@@ -78,6 +83,7 @@ class SpeedCalculatorWindow(val robot: Robot) : Application() {
             calculateButton,
 //            resultLabel
         )
+        layout.style = "-fx-background-color: #2b2b2b; -fx-text-fill: #ffffff;"
         val scene = Scene(layout, 300.0, 600.0)
 
         val popupStage = Stage()
