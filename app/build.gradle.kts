@@ -12,8 +12,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("maven-publish")
+    id("org.openjfx.javafxplugin") version "0.1.0" // Or latest
 }
-
+javafx {
+    version = "23.0.2" // Or your JavaFX version
+    modules("javafx.controls", "javafx.fxml", "javafx.graphics", "javafx.base") // Add ALL required modules
+}
 android {
     namespace = "com.gentrifiedapps.heatseekersimulator"
     compileSdk = 35
@@ -64,14 +68,14 @@ dependencies {
 
     implementation("com.opencsv:opencsv:5.5.2")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.recyclerview:recyclerview:1.3.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+//    implementation("androidx.core:core-ktx:1.10.1")
+//    implementation("androidx.appcompat:appcompat:1.6.1")
+//    implementation("com.google.android.material:material:1.9.0")
+//    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+//    implementation("androidx.recyclerview:recyclerview:1.3.1")
+//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
     implementation("com.acmerobotics.dashboard:dashboard:0.4.16")
     implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2")
@@ -79,11 +83,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to emptyList<String>()
-    )))
+    implementation(libs.androidx.monitor)
+//    implementation(fileTree(mapOf(
+//        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
+//        "include" to listOf("*.aar", "*.jar"),
+//        "exclude" to emptyList<String>()
+//    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
