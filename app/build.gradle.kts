@@ -11,12 +11,10 @@ val pomDesc = "https://github.com/$githubRepo"
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("maven-publish")
-    id("org.openjfx.javafxplugin") version "0.1.0" // Or latest
+    id("org.openjfx.javafxplugin") version "0.1.0" // Add JavaFX plugin
 }
-javafx {
+javafx{
     version = "23.0.2" // Or your JavaFX version
-    modules("javafx.controls", "javafx.fxml", "javafx.graphics", "javafx.base") // Add ALL required modules
 }
 android {
     namespace = "com.gentrifiedapps.heatseekersimulator"
@@ -38,8 +36,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
@@ -59,14 +57,28 @@ android {
             withSourcesJar()
         }
     }
+        packagingOptions {
+            exclude("META-INF/**")
+        }
 }
 
 dependencies {
-    implementation(libs.javafx.controls)
-    implementation(libs.javafx.fxml)
-    implementation(libs.javafx.graphics)
+//    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
-    implementation("com.opencsv:opencsv:5.5.2")
+    if (project.hasProperty("desktop")) {
+        implementation("org.openjfx:javafx-controls:23.0.2")
+        implementation("org.openjfx:javafx-fxml:23.0.2")
+        implementation("org.openjfx:javafx-graphics:23.0.2")
+    }
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to emptyList<String>()
+    )))
+
+    implementation("com.opencsv:opencsv:5.10")
+
+    implementation ("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 //    implementation("androidx.core:core-ktx:1.10.1")
@@ -84,49 +96,27 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.monitor)
-//    implementation(fileTree(mapOf(
-//        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
-//        "include" to listOf("*.aar", "*.jar"),
-//        "exclude" to emptyList<String>()
-//    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
-// Define resources JAR
-val resourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("resources") // This sets the classifier (like 'resources.jar')
-    from(android.sourceSets["main"].resources.srcDirs) // Includes all the resources from the main source set
-}
-
-// Define sources JAR
-val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-
-// Publishing block outside android
-afterEvaluate {
-    extensions.configure<PublishingExtension>("publishing") {
-        publications {
-            create<MavenPublication>("heatseekerSimulator") {
-                from(components["release"]) // Ensure "release" variant exists in the android.publishing block
-                artifact(sourcesJar)
-
-                pom {
-                    description.set(pomDesc)
-                    url.set(pomUrl)
-                    scm {
-                        url.set(pomScmUrl)
-                    }
-                }
-            }
-        }
-    }
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+tasks.register<Delete>("deleteJar") {
+    delete("libs/jars/logmanagementlib.jar")
+}
+
+tasks.register<Copy>("createJar") {
+    from("build/intermediates/bundles/release/")
+    into("libs/jars/")
+    include("classes.jar")
+    rename("classes.jar", "logmanagementlib.jar")
+}
+
+tasks.named("createJar") {
+    dependsOn("deleteJar", "build")
 }
