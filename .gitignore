@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/.name
+height_width.csv
+pid_vals.csv
+speeds.csv
