@@ -1,20 +1,15 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-val githubRepo = "GramGra07/HeatseekerSimulator"
-val githubReadme = "README.md"
-
-val pomUrl = "https://github.com/$githubRepo"
-val pomScmUrl = "https://github.com/$githubRepo"
-val pomIssueUrl = "https://github.com/$githubRepo/issues"
-val pomDesc = "https://github.com/$githubRepo"
+import org.gradle.jvm.tasks.Jar
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.openjfx.javafxplugin") version "0.1.0" // Add JavaFX plugin
+    //jlink
+    id("org.beryx.jlink") version "3.1.1" apply false
 }
-javafx{
+javafx {
     version = "23.0.2" // Or your JavaFX version
+    modules("javafx.controls", "javafx.fxml", "javafx.graphics")
 }
 android {
     namespace = "com.gentrifiedapps.heatseekersimulator"
@@ -31,7 +26,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -41,7 +39,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     sourceSets {
@@ -62,23 +60,33 @@ android {
         }
 }
 
+kotlin {
+    sourceSets {
+        val main by getting
+        val test by getting
+    }
+}
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")
 //    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
-    if (project.hasProperty("desktop")) {
-        implementation("org.openjfx:javafx-controls:23.0.2")
-        implementation("org.openjfx:javafx-fxml:23.0.2")
-        implementation("org.openjfx:javafx-graphics:23.0.2")
-    }
-    implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to emptyList<String>()
-    )))
+//        implementation("org.openjfx:javafx-controls:23.0.2")
+//        implementation("org.openjfx:javafx-fxml:23.0.2")
+//        implementation("org.openjfx:javafx-graphics:23.0.2")
+//
+//    implementation(
+//        fileTree(
+//            mapOf(
+//                "dir" to "C:\\Users\\grade\\Documents\\openjfx-23.0.2_windows-x64_bin-sdk\\javafx-sdk-23.0.2\\lib",
+//                "include" to listOf("*.aar", "*.jar"),
+//                "exclude" to emptyList<String>()
+//            )
+//        )
+//    )
 
     implementation("com.opencsv:opencsv:5.10")
 
-    implementation ("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
+    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 //    implementation("androidx.core:core-ktx:1.10.1")
@@ -90,33 +98,64 @@ dependencies {
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
     implementation("com.acmerobotics.dashboard:dashboard:0.4.16")
-    implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2")
+    implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2") {
+        exclude(group = "androidx.core", module = "core")
+    }
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.monitor)
+    implementation(files("src/main/java/com/gentrifiedapps/heatseekersimulator/javafx.base.jar"))
+    implementation(files("src/main/java/com/gentrifiedapps/heatseekersimulator/javafx.controls.jar"))
+    implementation(files("src/main/java/com/gentrifiedapps/heatseekersimulator/javafx.fxml.jar"))
+    implementation(files("src/main/java/com/gentrifiedapps/heatseekersimulator/javafx.graphics.jar"))
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(libs.androidx.junit)
+//    androidTestImplementation(libs.androidx.espresso.core)
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<JavaCompile> {
+    sourceCompatibility = "17" // Adjust to your installed version
+    targetCompatibility = "17" // Adjust to your installed version
+}
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17" // Adjust to match your Java version
     }
 }
 tasks.register<Delete>("deleteJar") {
-    delete("libs/jars/logmanagementlib.jar")
+    delete("libs/jars/heatseekersimulator.jar")
+}
+tasks.register<Jar>("createJar") {
+    dependsOn("deleteJar", "assembleDebug")
+
+    archiveBaseName.set("heatseekersimulator")
+    archiveVersion.set("1.0.0")
+
+    destinationDirectory.set(file("libs/jars"))
+
+    from("build/intermediates/javac/debug/classes")
+    from("build/tmp/kotlin-classes/debug")
+
+    // Include JavaFX JARs manually
+//    val javafxJars = configurations.getByName("debugRuntimeClasspath").filter {
+//        it.name.contains("javafx")
+//    }
+//
+//    from(javafxJars.map { zipTree(it) }) {
+//        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+//    }
+
+    manifest {
+        attributes(
+            "Main-Class" to "com.gentrifiedapps.heatseekersimulator.RoboticsSimulatorKt"
+        )
+    }
 }
 
-tasks.register<Copy>("createJar") {
-    from("build/intermediates/bundles/release/")
+tasks.register<Copy>("moveJar") {
+    dependsOn("createJar")
+    from("build/libs/")
     into("libs/jars/")
-    include("classes.jar")
-    rename("classes.jar", "logmanagementlib.jar")
-}
-
-tasks.named("createJar") {
-    dependsOn("deleteJar", "build")
 }
