@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Main-Class: com.gentrifiedapps.heatseekersimulator.RoboticsSimulatorKt
+Class-Path: javafx-base-17.0.6-win.jar commons-collections4-4.4.jar java
+ fx-fxml-17.0.6.jar javafx-graphics-17.0.6.jar annotations-13.0.jar comm
+ ons-logging-1.3.4.jar javafx-fxml-17.0.6-win.jar javafx-media-17.0.6-wi
+ n.jar commons-collections-3.2.2.jar javafx-base-17.0.6.jar javafx-contr
+ ols-17.0.6.jar commons-text-1.13.0.jar commons-beanutils-1.10.0.jar jav
+ afx-media-17.0.6.jar kotlin-stdlib-1.9.23.jar javafx-swing-17.0.6-win.j
+ ar commons-lang3-3.17.0.jar javafx-graphics-17.0.6-win.jar javafx-contr
+ ols-17.0.6-win.jar javafx-web-17.0.6-win.jar opencsv-5.10.jar
+
