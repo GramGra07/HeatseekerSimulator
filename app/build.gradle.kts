@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.openjfx.javafxplugin") version "0.1.0" // Add JavaFX plugin
-    //jlink
-    id("org.beryx.jlink") version "3.1.1" apply false
 }
 javafx {
     version = "23.0.2" // Or your JavaFX version
@@ -97,10 +95,9 @@ dependencies {
 //    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
-    implementation("com.acmerobotics.dashboard:dashboard:0.4.16")
-    implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2") {
-        exclude(group = "androidx.core", module = "core")
-    }
+
+    implementation("com.acmerobotics.dashboard:core:0.4.16")
+    implementation("com.github.GramGra07:GentrifiedAppsUtil:2.0.3-dev2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -139,13 +136,13 @@ tasks.register<Jar>("createJar") {
     from("build/tmp/kotlin-classes/debug")
 
     // Include JavaFX JARs manually
-//    val javafxJars = configurations.getByName("debugRuntimeClasspath").filter {
-//        it.name.contains("javafx")
-//    }
-//
-//    from(javafxJars.map { zipTree(it) }) {
-//        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-//    }
+    val javafxJars = configurations.getByName("debugRuntimeClasspath").filter {
+        it.name.contains("javafx")
+    }
+
+    from(javafxJars.map { zipTree(it) }) {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
 
     manifest {
         attributes(
