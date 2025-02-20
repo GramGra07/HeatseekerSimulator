@@ -25,7 +25,7 @@ ext {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.gentrifiedapps.heatseekersimulatorjar.Main'
+            'Main-Class': 'com.gentrifiedapps.heatseekersimulatorjar.RoboticsSimulatorKt'
         )
     }
 }
@@ -35,7 +35,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.gentrifiedapps.heatseekersimulatorjar'
-    mainClass = 'com.gentrifiedapps.heatseekersimulatorjar.Main'
+    mainClass = 'com.gentrifiedapps.heatseekersimulatorjar.RoboticsSimulatorKt'
 }
 kotlin {
     jvmToolchain(17)
@@ -43,7 +43,7 @@ kotlin {
 
 javafx {
     version = '17.0.6'
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 dependencies {

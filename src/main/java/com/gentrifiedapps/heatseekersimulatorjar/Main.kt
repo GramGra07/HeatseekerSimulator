@@ -1,9 +1,10 @@
-package com.gentrifiedapps.heatseekersimulatorjar;
+package com.gentrifiedapps.heatseekersimulatorjar
 
-import javafx.application.Application;
+import javafx.application.Application
 
-public class Main {
-    public static void main(String[] args) {
-       Application.launch( RoboticsSimulator.class, args);
+object Main {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        Application.launch(RoboticsSimulator::class.java, *args)
     }
 }

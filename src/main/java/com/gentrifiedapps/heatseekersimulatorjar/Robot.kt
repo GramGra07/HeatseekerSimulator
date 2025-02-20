@@ -1,6 +1,6 @@
-package com.gentrifiedapps.heatseekersimulator
+package com.gentrifiedapps.heatseekersimulatorjar
 
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.inToPixels
 import com.gentrifiedapps.heatseekersimulatorjar.drawers.PIDControllerView
 import com.gentrifiedapps.heatseekersimulatorjar.util.FW
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions.Companion.inpsToinpf

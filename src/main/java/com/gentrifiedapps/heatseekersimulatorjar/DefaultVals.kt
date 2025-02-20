@@ -1,4 +1,4 @@
-package com.gentrifiedapps.heatseekersimulatorjar.Vals
+package com.gentrifiedapps.heatseekersimulatorjar
 
 class DefaultVals {
     companion object {

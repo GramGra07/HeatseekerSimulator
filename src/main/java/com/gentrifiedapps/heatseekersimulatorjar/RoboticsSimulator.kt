@@ -1,16 +1,13 @@
 package com.gentrifiedapps.heatseekersimulatorjar
 
-import com.gentrifiedapps.heatseekersimulator.Robot
-import com.gentrifiedapps.heatseekersimulator.Simulator
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.centerWaypoint
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.height
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.imageParam
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.inToPixels
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.toolbarHeight
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.waypointRad
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.width
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.centerWaypoint
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.height
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.imageParam
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.toolbarHeight
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.waypointRad
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.width
 import com.gentrifiedapps.heatseekersimulator.drawers.ToolbarDrawer
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals
 import com.gentrifiedapps.heatseekersimulatorjar.util.Formattables
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions.Companion.distanceTo

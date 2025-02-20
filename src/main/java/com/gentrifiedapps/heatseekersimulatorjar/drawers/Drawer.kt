@@ -1,8 +1,8 @@
 package com.gentrifiedapps.heatseekersimulator.drawers
 
-import com.gentrifiedapps.heatseekersimulator.Robot
-import com.gentrifiedapps.heatseekersimulator.Simulator
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.isSimulating
+import com.gentrifiedapps.heatseekersimulatorjar.Robot
+import com.gentrifiedapps.heatseekersimulatorjar.Simulator
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.isSimulating
 import com.gentrifiedapps.heatseekersimulatorjar.util.FW
 import javafx.scene.control.Button
 import javafx.scene.control.TextField

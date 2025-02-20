@@ -1,7 +1,7 @@
-package com.gentrifiedapps.heatseekersimulator
+package com.gentrifiedapps.heatseekersimulatorjar
 
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.centerWaypoint
-import com.gentrifiedapps.heatseekersimulatorjar.Vals.GlobalVals.Companion.isSimulating
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.centerWaypoint
+import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.isSimulating
 import javafx.scene.canvas.GraphicsContext
 import com.gentrifiedapps.heatseekersimulatorjar.util.Waypoint
 

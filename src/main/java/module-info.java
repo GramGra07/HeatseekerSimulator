@@ -1,10 +1,12 @@
 module com.gentrifiedapps.heatseekersimulatorjar {
+    requires kotlin.stdlib;
     requires javafx.controls;
     requires javafx.fxml;
-    requires kotlin.stdlib;
+    requires javafx.graphics;
+    requires java.logging;
     requires com.opencsv;
 
-
-    opens com.gentrifiedapps.heatseekersimulatorjar to javafx.fxml;
     exports com.gentrifiedapps.heatseekersimulatorjar;
+    exports com.gentrifiedapps.heatseekersimulatorjar.util;
+    exports com.gentrifiedapps.heatseekersimulatorjar.drawers;
 }
