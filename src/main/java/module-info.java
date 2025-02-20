@@ -3,6 +3,7 @@ module com.gentrifiedapps.heatseekersimulatorjar {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires com.opencsv;
 
     exports com.gentrifiedapps.heatseekersimulatorjar;
 }
