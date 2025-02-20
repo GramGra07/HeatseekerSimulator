@@ -1,6 +1,6 @@
 package com.gentrifiedapps.heatseekersimulatorjar.util
 
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.inToPixels
 import javafx.scene.control.TextArea
 import kotlin.math.abs
 

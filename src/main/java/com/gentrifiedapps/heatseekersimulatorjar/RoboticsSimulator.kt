@@ -1,12 +1,12 @@
 package com.gentrifiedapps.heatseekersimulatorjar
 
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.centerWaypoint
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.height
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.imageParam
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.inToPixels
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.toolbarHeight
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.waypointRad
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.width
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.centerWaypoint
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.height
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.imageParam
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.toolbarHeight
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.waypointRad
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.width
 import com.gentrifiedapps.heatseekersimulator.drawers.ToolbarDrawer
 import com.gentrifiedapps.heatseekersimulatorjar.util.Formattables
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions
@@ -27,6 +27,7 @@ import javafx.scene.text.Text
 import javafx.stage.Stage
 import java.io.FileInputStream
 import com.gentrifiedapps.heatseekersimulatorjar.util.Waypoint
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals
 
 class RoboticsSimulator : Application() {
     var robot: Robot = Robot()

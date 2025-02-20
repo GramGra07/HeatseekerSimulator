@@ -1,9 +1,9 @@
 package com.gentrifiedapps.heatseekersimulatorjar.drawers
 
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.height
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.imageParam
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.inToPixels
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.width
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.height
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.imageParam
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.inToPixels
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.width
 import com.gentrifiedapps.heatseekersimulatorjar.util.FW
 import javafx.scene.canvas.Canvas
 import javafx.scene.control.TextField

@@ -1,10 +1,10 @@
 package com.gentrifiedapps.heatseekersimulatorjar.util
 
-import com.gentrifiedapps.heatseekersimulatorjar.DefaultVals.Companion.dDefault
-import com.gentrifiedapps.heatseekersimulatorjar.DefaultVals.Companion.iDefault
-import com.gentrifiedapps.heatseekersimulatorjar.DefaultVals.Companion.pDefault
-import com.gentrifiedapps.heatseekersimulatorjar.DefaultVals.Companion.sizeDefault
-import com.gentrifiedapps.heatseekersimulatorjar.DefaultVals.Companion.speedDefault
+import com.gentrifiedapps.heatseekersimulatorjar.vals.DefaultVals.Companion.dDefault
+import com.gentrifiedapps.heatseekersimulatorjar.vals.DefaultVals.Companion.iDefault
+import com.gentrifiedapps.heatseekersimulatorjar.vals.DefaultVals.Companion.pDefault
+import com.gentrifiedapps.heatseekersimulatorjar.vals.DefaultVals.Companion.sizeDefault
+import com.gentrifiedapps.heatseekersimulatorjar.vals.DefaultVals.Companion.speedDefault
 import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
 import java.io.FileReader

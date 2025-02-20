@@ -1,7 +1,7 @@
 package com.gentrifiedapps.heatseekersimulatorjar.util
 
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.angleMult
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.width
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.angleMult
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.width
 
 class MathFunctions {
     companion object {

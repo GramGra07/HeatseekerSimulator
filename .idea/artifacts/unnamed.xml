@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jlink" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <root id="root">
+      <element id="module-output" name="HeatseekerSimulatorJAR.main" />
+      <element id="module-source" name="HeatseekerSimulatorJAR.main" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/java/com/gentrifiedapps/heatseekersimulatorjar" />
+    </root>
+  </artifact>
+</component>

@@ -17,7 +17,8 @@
       </element>
       <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.9.23" />
       <element id="library" level="project" name="Gradle: com.opencsv:opencsv:5.10" />
-      <element id="library" level="project" name="lib" />
+      <element id="module-source" name="HeatseekerSimulatorJAR.main" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/java/com/gentrifiedapps/heatseekersimulatorjar" />
     </root>
   </artifact>
 </component>

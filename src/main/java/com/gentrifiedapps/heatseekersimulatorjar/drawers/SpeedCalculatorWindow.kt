@@ -1,7 +1,7 @@
 package com.gentrifiedapps.heatseekersimulator.drawers
 
 import com.gentrifiedapps.heatseekersimulatorjar.Robot
-import com.gentrifiedapps.heatseekersimulatorjar.GlobalVals.Companion.fps
+import com.gentrifiedapps.heatseekersimulatorjar.vals.GlobalVals.Companion.fps
 import com.gentrifiedapps.heatseekersimulatorjar.util.FW
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions.Companion.applyGearRatio
 import com.gentrifiedapps.heatseekersimulatorjar.util.MathFunctions.Companion.mmpsTomps
