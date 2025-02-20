@@ -206,6 +206,3 @@ class RoboticsSimulator : Application() {
     }
     //
 }
-fun main() {
-    Application.launch(RoboticsSimulator::class.java)
-}

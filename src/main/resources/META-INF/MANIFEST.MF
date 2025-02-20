@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.gentrifiedapps.heatseekersimulatorjar.RoboticsSimulatorKt
+Main-Class: com.gentrifiedapps.heatseekersimulatorjar.RoboticsSimulator
 Class-Path: javafx-controls-17.0.6.jar javafx-graphics-17.0.6-win.jar co
  mmons-lang3-3.17.0.jar javafx-fxml-17.0.6.jar javafx-base-17.0.6-win.ja
  r javafx-graphics-17.0.6.jar annotations-13.0.jar commons-beanutils-1.1
