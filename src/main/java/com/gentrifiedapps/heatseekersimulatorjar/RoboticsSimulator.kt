@@ -193,9 +193,7 @@ class RoboticsSimulator : Application() {
     }
 
     private fun drawBg(gc: GraphicsContext) {
-        val loader =
-            FileInputStream("C:\\Users\\grade\\Downloads\\repos\\HeatseekerSimulator\\app\\src\\main\\res\\image.png")
-        val fieldImage = Image(loader)
+        val fieldImage = Image(javaClass.getResource("/image.png").toExternalForm())
         gc.drawImage(fieldImage, 0.0, 0.0, imageParam, imageParam)
     }
 
