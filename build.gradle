@@ -25,10 +25,11 @@ ext {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.gentrifiedapps.heatseekersimulatorjar.Main'
+                'Main-Class': 'com.gentrifiedapps.heatseekersimulatorjar.Main'
         )
     }
 }
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -36,9 +37,6 @@ tasks.withType(JavaCompile) {
 application {
     mainModule = 'com.gentrifiedapps.heatseekersimulatorjar'
     mainClass = 'com.gentrifiedapps.heatseekersimulatorjar.Main'
-}
-kotlin {
-    jvmToolchain(17)
 }
 
 javafx {
@@ -58,7 +56,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
-
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
+}
 test {
     useJUnitPlatform()
 }
