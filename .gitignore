@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+*.csv
+*.properties
+*.xml
+.idea/discord.xml
